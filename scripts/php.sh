@@ -18,6 +18,9 @@ if [ "$1" == "hhvm" ]; then
 
     # Replace PHP with HHVM via symlinking
     sudo /usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60
+
+    # Restart/Start HHVM
+    sudo service hhvm restart
 else
     # Install PHP
     if [ -z "$2" ]; then

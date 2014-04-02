@@ -25,6 +25,9 @@ sudo apt-get install -y nginx
 
 echo ">>> Configuring Nginx"
 
+# Need to listen on port 9000 localhost
+# Then use the below and Include it, or use hhvm and Include it
+# instead of having PHP block be in nginx config directly
 if [[ $PHP_IS_INSTALLED -eq 0 ]]; then
 
     read -d '' PHP_NO_SSL <<EOF
