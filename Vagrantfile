@@ -2,9 +2,9 @@
 # vi: set ft=ruby :
 
 # Config Github Settings
-github_username = "tscheckenbach"
+github_username = "fideloper"
 github_repo     = "Vaprobash"
-github_branch   = "develop"
+github_branch   = "master"
 
 # Server Configuration
 
@@ -34,20 +34,22 @@ ruby_gems             = [        # List any Ruby Gems that you want to install
   #"compass",
 ]
 
-# HHVM pptions
-hhvm_use_fastcgi      = "false"  # Use HHVM as FastCGI (over php-fpm)
-hhvm_over_php         = "false"  # Symlink HHVM to PHP, so calls to PHP run via HHVM
+# Decide to use HHVM or PHP
+hhvm_or_php           = "php"    # "php" or "hhvm". Choose wisely. Or don't.
 
-# PHP Options
+# If you elect to use PHP
 php_version           = "latest" # Options: latest|previous|distributed   For 12.04. latest=5.5, previous=5.4, distributed=5.3
+
 composer_packages     = [        # List any global Composer packages that you want to install
   #"phpunit/phpunit:4.0.*",
   #"codeception/codeception=*",
   #"phpspec/phpspec:2.0.*@dev",
 ]
+
 public_folder         = "/vagrant" # If installing Symfony or Laravel, leave this blank to default to the framework public directory
 laravel_root_folder   = "/vagrant/laravel" # Where to install Laravel. Will `composer install` if a composer.json file exists
 symfony_root_folder   = "/vagrant/symfony" # Where to install Symfony.
+
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
   #"grunt-cli",
@@ -124,7 +126,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/scripts/base.sh"
 
   # Provision PHP
-  config.vm.provision "shell", path: "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/scripts/php.sh", args: [php_version, server_timezone]
+  config.vm.provision "shell", path: "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/scripts/php.sh", args: [hhvm_or_php, php_version, server_timezone]
 
   # Enable MSSQL for PHP
   # config.vm.provision "shell", path: "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/scripts/mssql.sh"
@@ -145,12 +147,6 @@ Vagrant.configure("2") do |config|
 
   # Provision Nginx Base
   # config.vm.provision "shell", path: "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/scripts/nginx.sh", args: [server_ip, public_folder]
-
-  # Provision HHVM & HHVM-FastCGI
-  # Note: Should be installed after either Apache or Nginx, incase one of these are installed.
-  #       It's suggested that you do NOT install php if you are using HHVM. HHVM is meant to be used as a replacement.
-  #       Installing HHVM and PHP will install PHP-FPM ~AND~ HHVM, both of which may vie for Nginx's Apache's attention
-  # config.vm.provision "shell", path: "https://raw.github.com/#{github_username}/#{github_repo}/#{github_branch}/scripts/hhvm.sh", args: [hhvm_use_fastcgi, hhvm_over_php]
 
 
   ####
