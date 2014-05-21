@@ -4,13 +4,6 @@
 php -v > /dev/null 2>&1
 PHP_IS_INSTALLED=$?
 
-# Test if HHVM is installed
-hhvm --version > /dev/null 2>&1
-HHVM_IS_INSTALLED=$?
-
-# If HHVM is installed, assume PHP is *not*
-[[ $HHVM_IS_INSTALLED -eq 0 ]] && { PHP_IS_INSTALLED=-1; }
-
 echo ">>> Installing Apache Server"
 
 [[ -z $1 ]] && { echo "!!! IP address not set. Check the Vagrant file."; exit 1; }

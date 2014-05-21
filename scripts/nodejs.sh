@@ -8,7 +8,7 @@ NODE_IS_INSTALLED=$?
 NODE_ARG=($@)
 
 # Number of arguments that are given
-NUMBER_OF_ARG=${#NODE_ARG[@]}
+NUMBER_OF_ARG=$#
 
 # Prepare the variables for installing specific Nodejs version and Global Node Packages
 if [[ $NUMBER_OF_ARG -gt 2 ]]; then
@@ -75,5 +75,5 @@ fi
 if [[ ! -z $NODE_PACKAGES ]]; then
     echo ">>> Start installing Global Node Packages"
 
-    npm install -g ${NODE_PACKAGES[@]}
+    npm install -g $NODE_PACKAGES
 fi

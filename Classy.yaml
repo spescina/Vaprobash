@@ -1,0 +1,48 @@
+---
+github:
+    username: "spescina"
+    repository: "Vaprobash"
+    branch: "master"
+    # url: "https://raw.githubusercontent.com/#{github_username}/#{github_repo}/#{github_branch}"
+    url: "."
+    
+machine:
+    ip: "10.10.10.100"
+    hostname: "lamp.dev"
+    timezone: "UTC"
+    forwarded_ports: { }
+    vm:
+        natdnshostresolver1: "on"
+        memory: "2048"
+        name: "lamp.dev"
+        cpus: 2
+
+ssh:
+    authorize: "/Users/simo/.ssh/id_rsa.pub"
+    keys:
+        - "/Users/simo/.ssh/id_rsa"
+
+shares:
+    - map: "/Users/simo/Development/web.dev/www"
+      to: "/var/www"
+      
+apache:
+    document_root: "/var/www"
+    sites: { }
+
+mysql:
+    password: "root"
+    
+composer:
+    packages:
+        - "phpunit/phpunit:4.0.*"
+        # - "codeception/codeception=*"
+        # - "phpspec/phpspec:2.0.*@dev"
+        # - "squizlabs/php_codesniffer:1.5.*"
+        
+nodejs:
+    version: "latest"
+    packages:
+        - "grunt-cli"
+        - "gulp"
+        - "bower"
